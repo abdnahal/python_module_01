@@ -27,20 +27,19 @@ class GardenManager:
 
     def add_plant(self, name, plant):
         if name not in self.gardens.keys():
-            self.gardens[name] = [plant]
-            print(f"Added {plant.name} to {name}'s garden")
+            self.gardens[name] = []
+        self.gardens[name].append(plant)
+        print(f"Added {plant.name} to {name}'s garden")
 
-    ##def grow_all_plants(self, name):
-        ##for i in self.gardens[name]: 
+    def grow_all_plants(self, name):
+        if name not in self.gardens:
+            print(f"{name} has no gardens!")
+            return
 
+        print(f"{name} is helping all plants grow...")
+        for plant in self.gardens[name]:
+            plant.grow()
 
-def main():
-    dict = {'ahmed': [1, 2, 3], 'simo': [99, 88, 77], 'badr': [2, 7, 8]}
-    print(dict['ahmed'])
-    lst = dict['ahmed']
-    for k in range(len(lst)):
-        lst[k] += 1
-    print(dict['ahmed'])
 
 if __name__ == "__main__":
     main()
