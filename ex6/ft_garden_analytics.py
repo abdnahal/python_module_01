@@ -39,7 +39,28 @@ class GardenManager:
         print(f"{name} is helping all plants grow...")
         for plant in self.gardens[name]:
             plant.grow()
+    @classmethod
+    def garden
 
+    class GardenStats:
+        @staticmethod
+        def plants_count(plant):
+            return (len(plant))
+        
+        @staticmethod
+        def total_height(plants):
+            total = 0
+            for plant in plants:
+                total += plant.height
+            return total
+        
+        @classmethod
+        def is_age(age):
+            return (age >= 0)
+        
+        @classmethod
+        def is_age(height):
+            return (height >= 0)
 
 if __name__ == "__main__":
-    main()
+    
