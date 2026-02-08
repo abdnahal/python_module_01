@@ -11,8 +11,8 @@ def main():
     Sunflower = Plant("Sunflower", 250, 90)
     all = [Jassmin, Corn, Sunflower]
     print("=== Garden Plant Registry ===")
-    for i in range(3):
-        print(f"{all[i].name}: {all[i].height}cm, {all[i].age} days old")
+    for obj in all:
+        print(f"{obj.name}: {obj.height}cm, {obj.age} days old")
 
 
 if __name__ == "__main__":

@@ -16,13 +16,11 @@ def main():
         ["Grass", 20, 180],
         ["herbes", 15, 27]]
     print("=== Plant Factory Output ===")
-    k = 0
-    for i in Plants:
-        current = Plant(Plants[k][0], Plants[k][1], Plants[k][2])
+    for one in Plants:
+        current = Plant(one[0], one[1], one[2])
         current.get_info()
-        k += 1
     print()
-    print(f"Total plants created: {k}")
+    print(f"Total plants created: {len(Plants)}")
 
 
 if __name__ == "__main__":
