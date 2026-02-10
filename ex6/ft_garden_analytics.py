@@ -26,10 +26,11 @@ class GardenManager():
         pass
 
     def create_garden_network(self):
-        self.gardens = dict
+        self.gardens = dict()
 
     def create_garden(self, name):
         self.gardens[name] = []
+        return self.gardens[name]
 
     def add_plant(self, name, plant):
         if name not in self.gardens.keys():
@@ -46,66 +47,83 @@ class GardenManager():
         for plant in self.gardens[name]:
             plant.grow()
 
+    def print_report(self, name):
+        if name not in self.gardens:
+            print(f"No garden found for {name}")
+            return
+        plants = self.gardens[name]
+        print(f"{name}'s Garden has {len(plants)} plants")
+        total = sum(p.height for p in plants)
+        print(f"Total height: {total}cm")
+
+    @staticmethod
+    def validate_height(height):
+        return height > 0
+
+    def calculate_garden_score(self, garden_name):
+        if garden_name not in self.gardens:
+            return 0
+        plants = self.gardens[garden_name]
+        return len(plants) * 10 + sum(p.height for p in plants)
+
+    @classmethod
+    def total_gardens(self):
+        return 1
+
     class GardenStats:
         @staticmethod
-        def plants_count(plant):
-            return (len(plant))
-        
+        def plants_count(garden):
+            return (len(garden))
+
         @staticmethod
         def total_height(plants):
             total = 0
             for plant in plants:
                 total += plant.height
             return total
-        
+
         @classmethod
-        def is_age(age):
+        def is_age(self, age):
             return (age >= 0)
-        
+
         @classmethod
-        def is_age(height):
+        def is_height(self, height):
             return (height >= 0)
 
 
 def main():
     print("=== Garden Management System Demo ===")
 
-    # Create manager using class-level constructor
-    manager = GardenManager.create_garden_network()
+    manager = GardenManager()
+    manager.create_garden_network()
 
-    # Create gardens
     alice_garden = manager.create_garden("Alice")
     bob_garden = manager.create_garden("Bob")
 
-    # Create plants (inheritance chain)
-    oak = Plant("Oak Tree", 100)
-    rose = FloweringPlant("Rose", 25, "red")
-    sunflower = PrizeFlower("Sunflower", 50, "yellow", 10)
+    oak = Plant("Oak Tree", 100, 365)
+    rose = FloweringPlant("Rose", 25, 100, "red")
+    sunflower = PrizeFlower("Sunflower", 50, 36, "yellow", 10)
 
-    # Add plants
-    alice_garden.add_plant(oak)
-    alice_garden.add_plant(rose)
-    alice_garden.add_plant(sunflower)
+    manager.add_plant("Alice", oak)
+    manager.add_plant("Alice", rose)
+    manager.add_plant("Alice", sunflower)
 
-    # Grow plants (instance method test)
     print("Alice is helping all plants grow...")
-    alice_garden.grow_all()
+    manager.grow_all_plants("Alice")
 
-    # Generate report using nested GardenStats
     print("\n=== Alice's Garden Report ===")
-    alice_garden.print_report()
+    manager.print_report("Alice")
 
-    # Static utility function test
     print("\nHeight validation test:",
           GardenManager.validate_height(100))
 
-    # Compare gardens (class-level analytics)
-    print("Garden scores - Alice:",
-          manager.calculate_garden_score(alice_garden),
-          ", Bob:",
-          manager.calculate_garden_score(bob_garden))
+    print("Garden scores - Alice and bob")
+    manager.calculate_garden_score("Alice"),
+    manager.calculate_garden_score("Bob")
 
-    # Class method counter
+    print(f"Alice's Garden: {alice_garden}")
+    print(f"Bob's Garden: {bob_garden}")
+
     print("Total gardens managed:",
           GardenManager.total_gardens())
 
