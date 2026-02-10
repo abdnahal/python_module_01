@@ -21,9 +21,11 @@ class PrizeFlower(FloweringPlant):
         self.prize_points = prize_points
 
 
-class GardenManager():
-    def __init__(self):
-        pass
+class GardenManager:
+    def __init__(self, name):
+        self.name = name
+
+    garden_count = 0
 
     def create_garden_network(self):
         self.gardens = dict()
@@ -67,13 +69,13 @@ class GardenManager():
         return len(plants) * 10 + sum(p.height for p in plants)
 
     @classmethod
-    def total_gardens(self):
+    def total_gardens(cls):
         return 1
 
     class GardenStats:
         @staticmethod
         def plants_count(garden):
-            return (len(garden))
+            return len(garden)
 
         @staticmethod
         def total_height(plants):
@@ -84,16 +86,15 @@ class GardenManager():
 
         @classmethod
         def is_age(self, age):
-            return (age >= 0)
+            return age > 0
 
         @classmethod
         def is_height(self, height):
-            return (height >= 0)
+            return height > 0
 
 
 def main():
     print("=== Garden Management System Demo ===")
-
     manager = GardenManager()
     manager.create_garden_network()
 
@@ -114,8 +115,7 @@ def main():
     print("\n=== Alice's Garden Report ===")
     manager.print_report("Alice")
 
-    print("\nHeight validation test:",
-          GardenManager.validate_height(100))
+    print("\nHeight validation test:", GardenManager.validate_height(100))
 
     print("Garden scores - Alice and bob")
     manager.calculate_garden_score("Alice"),
@@ -124,8 +124,7 @@ def main():
     print(f"Alice's Garden: {alice_garden}")
     print(f"Bob's Garden: {bob_garden}")
 
-    print("Total gardens managed:",
-          GardenManager.total_gardens())
+    print("Total gardens managed:", GardenManager.total_gardens())
 
 
 if __name__ == "__main__":
